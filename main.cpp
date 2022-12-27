@@ -2,6 +2,12 @@
 
 const char kWindowTitle[] = "GC1A_05_ウブカタコトハ_タイトル";
 
+//シーン管理
+enum modeName {
+	title, stage, gameover, gameclear
+};
+int nowMode = title;
+
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
@@ -24,7 +30,24 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		///
 		/// ↓更新処理ここから
 		///
+		switch (nowMode)
+		{
+		case title:	//タイトル
 
+			break;
+
+		case stage:	//メイン
+
+			break;
+
+		case gameover:	//ゲームオーバー
+
+			break;
+
+		case gameclear:	//クリア
+
+			break;
+		}
 		///
 		/// ↑更新処理ここまで
 		///
@@ -32,7 +55,24 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		///
 		/// ↓描画処理ここから
 		///
+		switch (nowMode)
+		{
+		case title: //タイトル
 
+			break;
+
+		case stage: //メイン
+
+			break;
+
+		case gameover: //ゲームオーバー
+
+			break;
+
+		case gameclear: //クリア
+
+			break;
+		}
 		///
 		/// ↑描画処理ここまで
 		///
