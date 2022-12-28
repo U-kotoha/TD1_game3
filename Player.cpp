@@ -2,13 +2,11 @@
 #include <Bullet.h>
 #include <Player.h>
 
-Player* player = new Player(600, 500, 50, 5);
-
 Player::Player(int x, int y, int radius, int speed) {
-	this->player_.x = 600;
-	this->player_.y = 500;
-	this->player_.radius = 50;
-	this->player_.speed = 5;
+	player_.x = 600;
+	player_.y = 500;
+	player_.radius = 50;
+	player_.speed = 5;
 
 	P_Bullet = new Bullet;
 }
@@ -19,19 +17,19 @@ Player::~Player() {
 }
 
 void Player::Move(Bullet* P_Bullet, char* keys) {
-	player->player_.speed = 5;
+	player_.speed = 5;
 
 	if (keys[DIK_W]) {
-		player->player_.y -= player->player_.speed;
+		player_.y -= player_.speed;
 	};
 	if (keys[DIK_S]) {
-		player->player_.y += player->player_.speed;
+		player_.y += player_.speed;
 	};
 	if (keys[DIK_A]) {
-		player->player_.x -= player->player_.speed;
+		player_.x -= player_.speed;
 	};
 	if (keys[DIK_D]) {
-		player->player_.x += player->player_.speed;
+		player_.x += player_.speed;
 	};
 
 	//”­ŽËˆ—
@@ -55,7 +53,7 @@ void Player::Move(Bullet* P_Bullet, char* keys) {
 
 void Player::Draw(Bullet* P_Bullet) {
 	//ƒvƒŒƒCƒ„[‚Ì•`‰æ
-	Novice::DrawEllipse(player->player_.x, player->player_.y, player->player_.radius, player->player_.radius, 0.0f, WHITE, kFillModeSolid);
+	Novice::DrawEllipse(player_.x, player_.y, player_.radius, player_.radius, 0.0f, WHITE, kFillModeSolid);
 	//’e‚Ì•`‰æ
 	P_Bullet->Draw();
 }

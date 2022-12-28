@@ -1,8 +1,7 @@
 #pragma once
 
 //マウス
-typedef struct Mouse
-{
+typedef struct Mouse{
 	int posX; //マウスのX座標
 	int posY; //マウスのY座標
 	int clickCount; //カウント

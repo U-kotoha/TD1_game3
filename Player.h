@@ -5,14 +5,12 @@
 class Player {
 public:
 
-	Player(int x, int y, int radius, int speed);
-
 	Player_ player_;
 	Bullet* P_Bullet;
 
 public:
 	//コンストラクタ
-	Player();
+	Player(int x, int y, int radius, int speed);
 	//デストラクタ
 	~Player();
 
