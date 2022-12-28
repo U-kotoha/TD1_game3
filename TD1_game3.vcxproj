@@ -92,11 +92,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.cpp" />
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\TextureManager.cpp" />
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\WinApp.cpp" />
     <ClCompile Include="C:\KamataEngine\DirectXGame\scene\GameScene.cpp" />
     <ClCompile Include="C:\KamataEngine\Adapter\Novice.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
   </ItemGroup>
@@ -106,6 +108,7 @@
     <ClInclude Include="..\DirectXGame\math\Vector2.h" />
     <ClInclude Include="..\DirectXGame\math\Vector3.h" />
     <ClInclude Include="..\DirectXGame\math\Vector4.h" />
+    <ClInclude Include="Bullet.h" />
     <ClInclude Include="C:\KamataEngine\DirectXGame\3d\CircleShadow.h" />
     <ClInclude Include="C:\KamataEngine\DirectXGame\3d\DebugCamera.h" />
     <ClInclude Include="C:\KamataEngine\DirectXGame\3d\DirectionalLight.h" />
@@ -127,6 +130,7 @@
     <ClInclude Include="C:\KamataEngine\DirectXGame\input\Input.h" />
     <ClInclude Include="C:\KamataEngine\DirectXGame\scene\GameScene.h" />
     <ClInclude Include="C:\KamataEngine\Adapter\Novice.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Struct.h" />
   </ItemGroup>

@@ -1,5 +1,8 @@
 ﻿#include <Novice.h>
-#include <player.h>
+
+#include <Player.h>
+#include <Bullet.h>
+#include <Enemy.h>
 
 const char kWindowTitle[] = "GC1A_05_ウブカタコトハ_タイトル";
 
@@ -19,7 +22,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	char keys[256] = {0};
 	char preKeys[256] = {0};
 
+	//インスタンス
 	Player* player = new Player(600, 500, 50, 5);
+	Bullet* bullet = new Bullet;
 
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0) {
@@ -40,7 +45,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			break;
 
 		case stage:	//メイン
-			player->Move(keys);
+			player->Move(bullet, keys);
 
 			break;
 
@@ -66,7 +71,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			break;
 
 		case stage: //メイン
-			player->Draw();
+			player->Draw(bullet);
 
 			break;
 
@@ -90,6 +95,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			break;
 		}
 	}
+
+	delete player;
+	delete bullet;
 
 	// ライブラリの終了
 	Novice::Finalize();
