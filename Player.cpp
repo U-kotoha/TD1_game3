@@ -1,12 +1,12 @@
 #include <Novice.h>
 #include <Player.h>
 
-Player* player = new Player(600, 500, 20, 5);
+Player* player = new Player(600, 500, 50, 5);
 
 Player::Player(int x, int y, int radius, int speed) {
 	this->player_.x = 600;
 	this->player_.y = 500;
-	this->player_.radius = 80;
+	this->player_.radius = 50;
 	this->player_.speed = 5;
 }
 
