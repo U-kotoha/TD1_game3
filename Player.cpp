@@ -28,5 +28,5 @@ void Player::Move(char* keys) {
 }
 
 void Player::Draw() {
-	Novice::DrawBox(player->player_.x, player->player_.y, player->player_.radius, player->player_.radius, 0.0f, WHITE, kFillModeSolid);
+	Novice::DrawEllipse(player->player_.x, player->player_.y, player->player_.radius, player->player_.radius, 0.0f, WHITE, kFillModeSolid);
 }
