@@ -1,4 +1,5 @@
 ﻿#include <Novice.h>
+#include <player.h>
 
 const char kWindowTitle[] = "GC1A_05_ウブカタコトハ_タイトル";
 
@@ -6,7 +7,7 @@ const char kWindowTitle[] = "GC1A_05_ウブカタコトハ_タイトル";
 enum modeName {
 	title, stage, gameover, gameclear
 };
-int nowMode = title;
+int nowMode = stage;
 
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
@@ -17,6 +18,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	// キー入力結果を受け取る箱
 	char keys[256] = {0};
 	char preKeys[256] = {0};
+
+	Player* player = new Player(600, 500, 20, 5);
 
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0) {
@@ -37,6 +40,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			break;
 
 		case stage:	//メイン
+			player->Move(keys);
 
 			break;
 
@@ -62,6 +66,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			break;
 
 		case stage: //メイン
+			player->Draw();
 
 			break;
 

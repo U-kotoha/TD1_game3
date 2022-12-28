@@ -17,6 +17,9 @@
     <Filter Include="h">
       <UniqueIdentifier>{045c7d1f-1d02-4092-9774-86d78ee625ee}</UniqueIdentifier>
     </Filter>
+    <Filter Include="cpp">
+      <UniqueIdentifier>{c1d19a5c-4b47-4653-b3fc-83bb6b0258d6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.cpp">
@@ -34,6 +37,9 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="C:\KamataEngine\Adapter\Novice.cpp">
       <Filter>KamataEngine\Adapter</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>cpp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -116,6 +122,9 @@
       <Filter>KamataEngine\Include</Filter>
     </ClInclude>
     <ClInclude Include="Struct.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
       <Filter>h</Filter>
     </ClInclude>
   </ItemGroup>

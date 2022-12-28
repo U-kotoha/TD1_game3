@@ -1,12 +1,5 @@
 #pragma once
 
-//構造体
-typedef struct Vector2
-{
-	float x;
-	float y;
-};
-
 //マウス
 typedef struct Mouse
 {
@@ -17,3 +10,18 @@ typedef struct Mouse
 	bool isRightClick; //右クリック判定
 };
 
+//構造体
+typedef struct Player_ {
+	int x;
+	int y;
+	int radius;
+	int speed;
+};
+
+typedef struct Bullet_ {
+	int x;
+	int y;
+	int radius;
+	int speed;
+	int isShot;
+};
