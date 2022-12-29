@@ -19,11 +19,11 @@ void Bullet::Update(char* keys) {
 	//ˆÚ“®ˆ—
 	for (int i = 0; i < bulletMax; i++) {
 		if (bullet_[i].isShot == true) {
-			if (bullet_[i].y > (0 - bullet_[i].radius)) {
-				bullet_[i].y -= bullet_[i].speed;
+			if (bullet_[i].x > (0 - bullet_[i].radius)) {
+				bullet_[i].x += bullet_[i].speed;
 			}
-			if (bullet_[i].y <= (0 - bullet_[i].radius)) {
-				bullet_[i].y = -100;
+			if (bullet_[i].x <= (0 - bullet_[i].radius)) {
+				bullet_[i].x = -100;
 				bullet_[i].isShot = false;
 			}
 		}
