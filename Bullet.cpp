@@ -22,7 +22,7 @@ void Bullet::Update(char* keys) {
 			if (bullet_[i].x > (0 - bullet_[i].radius)) {
 				bullet_[i].x += bullet_[i].speed;
 			}
-			if (bullet_[i].x <= (0 + bullet_[i].radius)) {
+			if (bullet_[i].x >= (1260)) {
 				bullet_[i].x = -100;
 				bullet_[i].isShot = false;
 			}
