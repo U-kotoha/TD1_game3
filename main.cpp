@@ -1,4 +1,5 @@
 ﻿#include <Novice.h>
+#include <stdio.h>
 #include <Player.h>
 #include <Bullet.h>
 
@@ -9,6 +10,27 @@ enum modeName {
 	title, stage, gameover, gameclear
 };
 int nowMode = stage;
+
+//マウス
+typedef struct Mouse {
+	int posX; //マウスのX座標
+	int posY; //マウスのY座標
+	int clickCount; //カウント
+	bool isLeftClick; //左クリック判定
+	bool isRightClick; //右クリック判定
+};
+
+//マウス操作の関数
+void MouseOperation(Mouse& mouse);
+
+//選択画面描画の関数
+void Select(float m, Mouse& mouse);
+
+//ゲームオーバー
+void SpriteGameover(Mouse& mouse, char keys[]);
+
+//ゲームクリア
+void SpriteGameclear(Mouse& mouse, char keys[]);
 
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
@@ -23,6 +45,41 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	//インスタンス
 	Player* player = new Player(600, 500, 50, 5);
 	Bullet* bullet = new Bullet;
+
+	//マウス定義
+	Mouse mouse {
+		0, //posX
+		0, //posY
+		0, //clickCount
+		false, //isLeftClick
+		false, //isRightClick
+	};
+	float m = 0;
+
+	//マップチップ
+	const int MapchipX = 48;
+	const int MapchipY = 15;
+
+	int box = Novice::LoadTexture("./Resource/block.png");
+	int map[MapchipY][MapchipX] = {};
+
+	enum MapInfo {
+		NONE, //0
+		BOX  //1
+	};
+
+	FILE* fp1 = nullptr;
+	char filename1[] = "ステージ - ステージ1.csv";
+	int err1 = fopen_s(&fp1, "ステージ - ステージ1.csv", "r");
+
+	for (int i = 0; i < MapchipY; i++) {
+		for (int j = 0; j < MapchipX; j++) {
+			fscanf_s(fp1, "%d,", &map[i][j]);
+		}
+	}
+
+	fclose(fp1);
+	const int mapChipSize = 64;
 
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0) {
@@ -71,6 +128,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		case stage: //メイン
 			player->Draw(bullet);
 
+			for (int y = 0; y < MapchipY; y++) {
+				for (int x = 0; x < MapchipX; x++) {
+					if (map[y][x] == BOX) {
+						Novice::DrawSprite(x * 64, y * 64, box, 1, 1, 0, WHITE);
+					}
+				}
+			}
 			break;
 
 		case gameover: //ゲームオーバー
