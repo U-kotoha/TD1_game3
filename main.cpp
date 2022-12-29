@@ -11,27 +11,6 @@ enum modeName {
 };
 int nowMode = stage;
 
-//マウス
-typedef struct Mouse {
-	int posX; //マウスのX座標
-	int posY; //マウスのY座標
-	int clickCount; //カウント
-	bool isLeftClick; //左クリック判定
-	bool isRightClick; //右クリック判定
-};
-
-//マウス操作の関数
-void MouseOperation(Mouse& mouse);
-
-//選択画面描画の関数
-void Select(float m, Mouse& mouse);
-
-//ゲームオーバー
-void SpriteGameover(Mouse& mouse, char keys[]);
-
-//ゲームクリア
-void SpriteGameclear(Mouse& mouse, char keys[]);
-
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
@@ -43,18 +22,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	char preKeys[256] = {0};
 
 	//インスタンス
-	Player* player = new Player(600, 500, 50, 5);
+	Player* player = new Player(400, 505, 40, 5);
 	Bullet* bullet = new Bullet;
-
-	//マウス定義
-	Mouse mouse {
-		0, //posX
-		0, //posY
-		0, //clickCount
-		false, //isLeftClick
-		false, //isRightClick
-	};
-	float m = 0;
 
 	//マップチップ
 	const int MapchipX = 30;
@@ -68,6 +37,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		BOX  //1
 	};
 
+	//ファイル読み込み
 	FILE* fp1 = nullptr;
 	char filename1[] = "ステージ1.csv";
 	int err1 = fopen_s(&fp1, "ステージ1.csv", "r");
@@ -80,6 +50,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	fclose(fp1);
 	const int mapChipSize = 32;
+
+	//スクロール
+	int scroll = 0;
+	int scrollspeed = 6;
 
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0) {
@@ -101,6 +75,25 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 		case stage:	//メイン
 			player->Move(bullet, keys);
+
+			//移動範囲
+			if (player->player_.x > 800) {
+				player->player_.x = 800;
+			}
+			//スクロール
+			if (player->player_.x - scroll <= 400) {
+				scroll -= scrollspeed;
+			}
+			if (player->player_.x >= 400) {
+				scroll += scrollspeed;
+			}
+			//画面スクロール
+			if (scroll > 1940) {
+				scroll = 1940;
+			}
+			if (scroll < 0) {
+				scroll = 0;
+			}
 
 			break;
 
@@ -131,10 +124,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			for (int y = 0; y < MapchipY; y++) {
 				for (int x = 0; x < MapchipX; x++) {
 					if (map[y][x] == BOX) {
-						Novice::DrawSprite(x * 32, y * 32, box, 1, 1, 0, WHITE);
+						Novice::DrawSprite(x * 32 - scroll , y * 32, box, 1, 1, 0, WHITE);
 					}
 				}
 			}
+
 			break;
 
 		case gameover: //ゲームオーバー

@@ -3,8 +3,8 @@
 #include <Player.h>
 
 Player::Player(int x, int y, int radius, int speed) {
-	player_.x = 600;
-	player_.y = 500;
+	player_.x = 400;
+	player_.y = 505;
 	player_.radius = 40;
 	player_.speed = 5;
 
@@ -20,12 +20,6 @@ void Player::Move(Bullet* P_Bullet, char* keys) {
 	player_.speed = 5;
 
 	//ƒvƒŒƒCƒ„[‚ÌˆÚ“®ˆ—
-	if (keys[DIK_W]) {
-		player_.y -= player_.speed;
-	};
-	if (keys[DIK_S]) {
-		player_.y += player_.speed;
-	};
 	if (keys[DIK_A]) {
 		player_.x -= player_.speed;
 	};

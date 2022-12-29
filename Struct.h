@@ -16,3 +16,12 @@ typedef struct Bullet_ {
 	int speed;
 	int isShot;
 };
+
+//マウス
+typedef struct Mouse_ {
+	int posX; //マウスのX座標
+	int posY; //マウスのY座標
+	int clickCount; //カウント
+	bool isLeftClick; //左クリック判定
+	bool isRightClick; //右クリック判定
+};

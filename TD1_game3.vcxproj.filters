@@ -44,6 +44,9 @@
     <ClCompile Include="Bullet.cpp">
       <Filter>cpp</Filter>
     </ClCompile>
+    <ClCompile Include="Mouse.cpp">
+      <Filter>cpp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\KamataEngine\DirectXGame\audio\Audio.h">
@@ -131,6 +134,9 @@
       <Filter>h</Filter>
     </ClInclude>
     <ClInclude Include="Bullet.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="Mouse.h">
       <Filter>h</Filter>
     </ClInclude>
   </ItemGroup>
