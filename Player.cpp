@@ -5,7 +5,7 @@
 Player::Player(int x, int y, int radius, int speed) {
 	player_.x = 600;
 	player_.y = 500;
-	player_.radius = 50;
+	player_.radius = 40;
 	player_.speed = 5;
 
 	P_Bullet = new Bullet;
@@ -19,6 +19,7 @@ Player::~Player() {
 void Player::Move(Bullet* P_Bullet, char* keys) {
 	player_.speed = 5;
 
+	//ƒvƒŒƒCƒ„[‚ÌˆÚ“®ˆ—
 	if (keys[DIK_W]) {
 		player_.y -= player_.speed;
 	};

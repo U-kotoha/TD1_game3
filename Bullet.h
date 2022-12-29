@@ -1,6 +1,7 @@
 #pragma once
 #include <Struct.h>
 
+//’e‚ÌƒNƒ‰ƒX
 class Bullet {
 public:
 

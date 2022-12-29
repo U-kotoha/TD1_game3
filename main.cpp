@@ -1,8 +1,6 @@
 ﻿#include <Novice.h>
-
 #include <Player.h>
 #include <Bullet.h>
-#include <Enemy.h>
 
 const char kWindowTitle[] = "GC1A_05_ウブカタコトハ_タイトル";
 
@@ -16,7 +14,7 @@ int nowMode = stage;
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	// ライブラリの初期化
-	Novice::Initialize(kWindowTitle, 1280, 720);
+	Novice::Initialize(kWindowTitle, 1000, 600);
 
 	// キー入力結果を受け取る箱
 	char keys[256] = {0};

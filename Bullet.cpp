@@ -7,6 +7,7 @@ Bullet::Bullet() {
 	bulletCount = 0;
 
 	for (int i = 0; i < bulletMax; i++) {
+		//’e‚Ì‰Šú‰»
 		bullet_[i].x = -100;
 		bullet_[i].y = -100;
 		bullet_[i].radius = 10;
@@ -22,7 +23,7 @@ void Bullet::Update(char* keys) {
 			if (bullet_[i].x > (0 - bullet_[i].radius)) {
 				bullet_[i].x += bullet_[i].speed;
 			}
-			if (bullet_[i].x >= 1260) {
+			if (bullet_[i].x >= 980) {
 				bullet_[i].x = -100;
 				bullet_[i].isShot = false;
 			}

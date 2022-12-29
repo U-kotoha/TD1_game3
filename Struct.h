@@ -9,7 +9,7 @@ typedef struct Mouse{
 	bool isRightClick; //右クリック判定
 };
 
-//構造体
+//プレイヤー構造体
 typedef struct Player_ {
 	int x;
 	int y;
@@ -17,6 +17,7 @@ typedef struct Player_ {
 	int speed;
 };
 
+//弾の構造体
 typedef struct Bullet_ {
 	int x;
 	int y;
