@@ -36,7 +36,7 @@ void SpriteGameclear(Mouse& mouse, char keys[]);
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	// ライブラリの初期化
-	Novice::Initialize(kWindowTitle, 1000, 600);
+	Novice::Initialize(kWindowTitle, 960, 640);
 
 	// キー入力結果を受け取る箱
 	char keys[256] = {0};
@@ -57,8 +57,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	float m = 0;
 
 	//マップチップ
-	const int MapchipX = 48;
-	const int MapchipY = 15;
+	const int MapchipX = 30;
+	const int MapchipY = 20;
 
 	int box = Novice::LoadTexture("./Resource/block.png");
 	int map[MapchipY][MapchipX] = {};
@@ -69,8 +69,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	};
 
 	FILE* fp1 = nullptr;
-	char filename1[] = "ステージ - ステージ1.csv";
-	int err1 = fopen_s(&fp1, "ステージ - ステージ1.csv", "r");
+	char filename1[] = "ステージ1.csv";
+	int err1 = fopen_s(&fp1, "ステージ1.csv", "r");
 
 	for (int i = 0; i < MapchipY; i++) {
 		for (int j = 0; j < MapchipX; j++) {
@@ -79,7 +79,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	}
 
 	fclose(fp1);
-	const int mapChipSize = 64;
+	const int mapChipSize = 32;
 
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0) {
@@ -131,7 +131,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			for (int y = 0; y < MapchipY; y++) {
 				for (int x = 0; x < MapchipX; x++) {
 					if (map[y][x] == BOX) {
-						Novice::DrawSprite(x * 64, y * 64, box, 1, 1, 0, WHITE);
+						Novice::DrawSprite(x * 32, y * 32, box, 1, 1, 0, WHITE);
 					}
 				}
 			}
