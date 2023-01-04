@@ -47,6 +47,7 @@ void Player::Move(Bullet* P_Bullet, char* keys) {
 }
 
 void Player::Draw(Bullet* P_Bullet) {
+
 	//ƒvƒŒƒCƒ„[‚Ì•`‰æ
 	Novice::DrawEllipse(player_.x, player_.y, player_.radius, player_.radius, 0.0f, WHITE, kFillModeSolid);
 	//’e‚Ì•`‰æ

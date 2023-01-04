@@ -21,6 +21,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	char keys[256] = {0};
 	char preKeys[256] = {0};
 
+	//変数宣言
+	int jump = 0;
+	int point = 0;
+	float yadd = 0.0f;
+	float down = 0.0f;
+
 	//インスタンス
 	Player* player = new Player(400, 505, 40, 5);
 	Bullet* bullet = new Bullet;
@@ -51,10 +57,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	fclose(fp1);
 	const int mapChipSize = 32;
 
-	//スクロール
-	int scroll = 0;
-	int scrollspeed = 6;
-
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0) {
 		// フレームの開始
@@ -77,22 +79,37 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			player->Move(bullet, keys);
 
 			//移動範囲
-			if (player->player_.x > 800) {
-				player->player_.x = 800;
+			if (player->player_.x > 920) {
+				player->player_.x = 920;
 			}
-			//スクロール
-			if (player->player_.x - scroll <= 400) {
-				scroll -= scrollspeed;
+			if (player->player_.x < 40) {
+				player->player_.x = 40;
 			}
-			if (player->player_.x >= 400) {
-				scroll += scrollspeed;
+
+			//ジャンプ
+			if (keys[DIK_W] && preKeys[DIK_W] == 0) {
+				jump = 1;
 			}
-			//画面スクロール
-			if (scroll > 1940) {
-				scroll = 1940;
+			if (jump == 1) {
+				yadd = -5.0f;
+				down = +5.0f;
 			}
-			if (scroll < 0) {
-				scroll = 0;
+			if (jump == 1) {
+				if (point == 0) {
+					player->player_.y += yadd;
+				}
+			}
+			if (jump == 1) {
+				if (player->player_.y <= 405) {
+					point = 1;
+				}
+			}
+			if (point == 1) {
+				player->player_.y += down;
+			}
+			if (player->player_.y == 505) {
+				jump = 0;
+				point = 0;
 			}
 
 			break;
@@ -124,10 +141,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			for (int y = 0; y < MapchipY; y++) {
 				for (int x = 0; x < MapchipX; x++) {
 					if (map[y][x] == BOX) {
-						Novice::DrawSprite(x * 32 - scroll , y * 32, box, 1, 1, 0, WHITE);
+						Novice::DrawSprite(x * 32, y * 32, box, 1, 1, 0, WHITE);
 					}
 				}
 			}
+
+			Novice::ScreenPrintf(0, 0, "posX = %d", player->player_.x);
+			Novice::ScreenPrintf(0, 30, "posY = %d", player->player_.y);
 
 			break;
 
