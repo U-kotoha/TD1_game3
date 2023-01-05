@@ -16,3 +16,12 @@ typedef struct Bullet_ {
 	int speed;
 	int isShot;
 };
+
+//“G‚Ì\‘¢‘Ì
+typedef struct Enemy_ {
+	int x;
+	int y;
+	int radius;
+	int speed;
+	int color;
+};
