@@ -2,7 +2,7 @@
 #include <Bullet.h>
 #include <Player.h>
 
-Player::Player(int x, int y, int radius, int speed) {
+Player::Player() {
 	player_.x = 400;
 	player_.y = 505;
 	player_.radius = 40;
@@ -29,7 +29,7 @@ void Player::Move(Bullet* P_Bullet, char* keys) {
 
 	//”­Ëˆ—
 	for (int i = 0; i < P_Bullet->bulletMax; i++) {
-		if (keys[DIK_SPACE] && P_Bullet->bullet_[i].isShot == false && P_Bullet->bulletCount == 0) {
+		if (Novice::IsPressMouse(0) && P_Bullet->bullet_[i].isShot == false && P_Bullet->bulletCount == 0) {
 			P_Bullet->bullet_[i].x = player_.x;
 			P_Bullet->bullet_[i].y = player_.y;
 			P_Bullet->bullet_[i].isShot = true;

@@ -26,14 +26,16 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int point = 0;
 	float yadd = 0.0f;
 	float down = 0.0f;
+	int HP = 1;
 
 	//インスタンス
-	Player* player = new Player(400, 505, 40, 5);
+	Player* player = new Player;
 	Bullet* bullet = new Bullet;
 
 	//マップチップ
 	const int MapchipX = 30;
 	const int MapchipY = 20;
+	const int mapChipSize = 32;
 
 	int box = Novice::LoadTexture("./Resource/block.png");
 	int map[MapchipY][MapchipX] = {};
@@ -53,9 +55,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			fscanf_s(fp1, "%d,", &map[i][j]);
 		}
 	}
-
 	fclose(fp1);
-	const int mapChipSize = 32;
 
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0) {
@@ -73,6 +73,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		{
 		case title:	//タイトル
 
+
+
 			break;
 
 		case stage:	//メイン
@@ -87,7 +89,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 
 			//ジャンプ
-			if (keys[DIK_W] && preKeys[DIK_W] == 0) {
+			if (keys[DIK_SPACE]&& preKeys[DIK_SPACE] == 0) {
 				jump = 1;
 			}
 			if (jump == 1) {
@@ -110,6 +112,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			if (player->player_.y == 505) {
 				jump = 0;
 				point = 0;
+			}
+
+
+			//シーン切り替え
+			if (HP == 0) {
+				nowMode = gameover;
 			}
 
 			break;

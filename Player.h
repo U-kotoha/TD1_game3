@@ -12,7 +12,7 @@ public:
 public:
 
 	//コンストラクタ
-	Player(int x, int y, int radius, int speed);
+	Player();
 	//デストラクタ
 	~Player();
 
