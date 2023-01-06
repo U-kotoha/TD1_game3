@@ -14,7 +14,10 @@ void Enemy::Update() {
 }
 
 void Enemy::Draw() {
-	Novice::DrawEllipse(enemy_.x, enemy_.y, enemy_.radius, enemy_.radius, 0.0f, RED, kFillModeSolid);
+	int ENEMY = Novice::LoadTexture("./Resource/enemy.png");
+
+	Novice::DrawEllipse(enemy_.x, enemy_.y, enemy_.radius, enemy_.radius, 0.0f, 0x00, kFillModeSolid);
+	Novice::DrawSprite(enemy_.x - 40, enemy_.y - 25, ENEMY, 1, 1, 0.0f, WHITE);
 }
 
 void Enemy::OnCollision() {

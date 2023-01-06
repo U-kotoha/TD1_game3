@@ -30,7 +30,7 @@ void Player::Move(Bullet* P_Bullet, char* keys) {
 	//”­Ëˆ—
 	for (int i = 0; i < P_Bullet->bulletMax; i++) {
 		if (Novice::IsPressMouse(0) && P_Bullet->bullet_[i].isShot == false && P_Bullet->bulletCount == 0) {
-			P_Bullet->bullet_[i].x = player_.x;
+			P_Bullet->bullet_[i].x = player_.x+40;
 			P_Bullet->bullet_[i].y = player_.y;
 			P_Bullet->bullet_[i].isShot = true;
 			P_Bullet->bulletCount = 10;
@@ -47,9 +47,11 @@ void Player::Move(Bullet* P_Bullet, char* keys) {
 }
 
 void Player::Draw(Bullet* P_Bullet) {
+	int PLAYER = Novice::LoadTexture("./Resource/player.png");
 
 	//ƒvƒŒƒCƒ„[‚Ì•`‰æ
-	Novice::DrawEllipse(player_.x, player_.y, player_.radius, player_.radius, 0.0f, WHITE, kFillModeSolid);
+	Novice::DrawEllipse(player_.x, player_.y, player_.radius, player_.radius, 0.0f, 0x00, kFillModeSolid);
+	Novice::DrawSprite(player_.x-35, player_.y-25, PLAYER, 1, 1, 0.0f, WHITE);
 	//’e‚Ì•`‰æ
 	P_Bullet->Draw();
 }
