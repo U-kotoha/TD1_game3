@@ -23,5 +23,5 @@ typedef struct Enemy_ {
 	int y;
 	int radius;
 	int speed;
-	int color;
+	int hp;
 };

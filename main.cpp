@@ -34,6 +34,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	float yadd = 0.0f;
 	float down = 0.0f;
 	int HP = 1;
+	int enemybullet = 0;
+	int enemybulletspeed = 8;
+	int enemybulletX = -100;
+	int enemybulletY = -100;
 
 	//マウス
 	int x = 0;
@@ -95,6 +99,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 		case stage1:	//メイン
 			player->Move(bullet, keys);
+			enemy->Update();
 
 			//移動範囲
 			if (player->player_.x > 920) {
@@ -131,12 +136,42 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 
 			//当たり判定
-			float dx = player->player_.x - enemy->enemy_.x;
-			float dy = player->player_.y - enemy->enemy_.y;
-			float distance = sqrtf(dx * dx + dy * dy);
+			for (int i = 0; i < bullet->bulletMax; i++) {
+				if (bullet->bullet_[i].isShot == true) {
+					float dx = bullet->bullet_[i].x - enemy->enemy_.x;
+					float dy = bullet->bullet_[i].y - enemy->enemy_.y;
+					float distance = sqrtf(dx * dx + dy * dy);
 
-			if (distance <= player->player_.radius * enemy->enemy_.radius) {
-				enemy->OnCollision();
+					if (distance <= bullet->bullet_[i].radius + enemy->enemy_.radius) {
+						bullet->bullet_[i].isShot = 0;
+						enemy->OnCollision();
+					}
+				}
+			}
+			float player_enemy_X = player->player_.x - enemy->enemy_.x;
+			float player_enemy_Y = player->player_.y - enemy->enemy_.y;
+			float distance2 = sqrtf(player_enemy_X * player_enemy_X + player_enemy_Y * player_enemy_Y);
+
+			if (distance2 <= player->player_.radius + enemy->enemy_.radius) {
+				HP = 0;
+			}
+
+			//敵の攻撃
+			if (enemybullet == 0) {
+				enemybullet = 1;
+				enemybulletX = enemy->enemy_.x;
+				enemybulletY = enemy->enemy_.y;
+			}
+			if (enemybullet == 1) {
+				enemybulletX -= enemybulletspeed;
+			}
+			if (enemybulletX < 40) {
+				enemybullet = 0;
+				enemybulletX = enemy->enemy_.x;
+				enemybulletY = enemy->enemy_.y;
+			}
+			if (enemy->enemy_.hp == 0) {
+				enemybullet = 0;
 			}
 
 			//シーン切り替え
@@ -144,6 +179,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				nowMode = stage2;
 				player->player_.x = 40;
 				player->player_.y = 505;
+			}
+
+			if (HP == 0) {
+				nowMode = gameover;
 			}
 
 			break;
@@ -185,7 +224,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				point = 0;
 			}
 
-			//シーン切り替え
 			if (HP == 0) {
 				nowMode = gameover;
 			}
@@ -256,8 +294,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		case title: //タイトル
 
 			//デバッグ
-			Novice::ScreenPrintf(0, 0, "Mouse X : %d", x);
-			Novice::ScreenPrintf(0, 30, "Mouse Y : %d", y);
+			//Novice::ScreenPrintf(0, 0, "Mouse X : %d", x);
+			//Novice::ScreenPrintf(0, 30, "Mouse Y : %d", y);
 
 			break;
 
@@ -271,11 +309,17 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					}
 				}
 			}
-			enemy->Draw();
-
+			if (enemy->enemy_.hp > 0) {
+				enemy->Draw();
+			}
+			if (enemybullet == 1) {
+				Novice::DrawEllipse(enemybulletX, enemybulletY, 20, 20, 0.0f, RED, kFillModeSolid);
+			}
 			//デバッグ
-			Novice::ScreenPrintf(0, 0, "posX = %d", player->player_.x);
-			Novice::ScreenPrintf(0, 30, "posY = %d", player->player_.y);
+			//Novice::ScreenPrintf(0, 0, "posX = %d", player->player_.x);
+			//Novice::ScreenPrintf(0, 30, "posY = %d", player->player_.y);
+			//Novice::ScreenPrintf(0, 60, "enemyHP = %d", enemy->enemy_.hp);
+			Novice::ScreenPrintf(0, 90, "enemybullet = %d", enemybullet);
 
 			break;
 
@@ -291,8 +335,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 
 			//デバッグ
-			Novice::ScreenPrintf(0, 0, "posX = %d", player->player_.x);
-			Novice::ScreenPrintf(0, 30, "posY = %d", player->player_.y);
+			//Novice::ScreenPrintf(0, 0, "posX = %d", player->player_.x);
+			//Novice::ScreenPrintf(0, 30, "posY = %d", player->player_.y);
 
 			break;
 
@@ -308,8 +352,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 
 			//デバッグ
-			Novice::ScreenPrintf(0, 0, "posX = %d", player->player_.x);
-			Novice::ScreenPrintf(0, 30, "posY = %d", player->player_.y);
+			//Novice::ScreenPrintf(0, 0, "posX = %d", player->player_.x);
+			//Novice::ScreenPrintf(0, 30, "posY = %d", player->player_.y);
 
 			break;
 
@@ -336,6 +380,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	delete player;
 	delete bullet;
+	delete enemy;
 
 	// ライブラリの終了
 	Novice::Finalize();

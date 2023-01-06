@@ -6,17 +6,17 @@ Enemy::Enemy() {
 	enemy_.y = 505;
 	enemy_.radius = 40;
 	enemy_.speed = 5;
-	enemy_.color = WHITE;
+	enemy_.hp = 10;
 }
 
 void Enemy::Update() {
-
+	
 }
 
 void Enemy::Draw() {
-	Novice::DrawEllipse(enemy_.x, enemy_.y, enemy_.radius, enemy_.radius, 0.0f, enemy_.color, kFillModeSolid);
+	Novice::DrawEllipse(enemy_.x, enemy_.y, enemy_.radius, enemy_.radius, 0.0f, RED, kFillModeSolid);
 }
 
 void Enemy::OnCollision() {
-	enemy_.color = RED;
+	enemy_.hp -= 1;
 }
