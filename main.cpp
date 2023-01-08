@@ -317,6 +317,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 		case gameover:	//ゲームオーバー
 
+			if (keys[DIK_LSHIFT] && preKeys[DIK_LSHIFT] == 0) {
+				nowMode = title;
+			}
+
 			break;
 
 		case gameclear:	//クリア
