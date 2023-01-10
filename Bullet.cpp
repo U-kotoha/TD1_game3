@@ -3,7 +3,7 @@
 
 Bullet::Bullet() {
 	//‰Šú‰»
-	bulletMax = 10;
+	bulletMax = 5;
 	bulletCount = 0;
 
 	for (int i = 0; i < bulletMax; i++) {
@@ -17,7 +17,7 @@ Bullet::Bullet() {
 }
 
 void Bullet::Update(char* keys) {
-	//ˆÚ“®ˆ—
+	//’e‚Ìˆ—
 	for (int i = 0; i < bulletMax; i++) {
 		if (bullet_[i].isShot == true) {
 			if (bullet_[i].x > (0 - bullet_[i].radius)) {

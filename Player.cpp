@@ -3,7 +3,7 @@
 #include <Player.h>
 
 Player::Player() {
-	player_.x = 400;
+	player_.x = 100;
 	player_.y = 505;
 	player_.radius = 40;
 	player_.speed = 5;
