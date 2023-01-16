@@ -1,13 +1,14 @@
 #pragma once
 #include <Struct.h>
 
-//弾のクラス
+//プレイヤーの弾のクラス
 class Bullet {
 public:
 
 	int bulletMax;
 	int bulletCount;
-	Bullet_ bullet_[10];
+	bool isShot[10];
+	Transform bullet_[10];
 
 public:
 

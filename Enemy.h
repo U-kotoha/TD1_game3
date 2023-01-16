@@ -1,13 +1,20 @@
 #pragma once
 #include <Struct.h>
+#include <EnemyBullet.h>
 
 class Enemy {
 public:
 
-	Enemy_ enemy_;
+	int enemy_hp;
+	
+	Transform enemy_;
+	EnemyBullet* E_Bullet;
 
 	//コンストラクタ
 	Enemy();
+
+	//デストラクタ
+	~Enemy();
 
 	//メンバ関数
 	void Update();

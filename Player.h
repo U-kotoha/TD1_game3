@@ -6,7 +6,9 @@
 class Player {
 public:
 
-	Player_ player_;
+	int player_hp;
+
+	Transform player_;
 	Bullet* P_Bullet;
 
 public:

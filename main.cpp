@@ -6,6 +6,7 @@
 #include <Player.h>
 #include <Bullet.h>
 #include <Enemy.h>
+#include <EnemyBullet.h>
 
 const char kWindowTitle[] = "GC1A_05_ウブカタコトハ_タイトル";
 
@@ -32,14 +33,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	Player* player = new Player;
 	Bullet* bullet = new Bullet;
 	Enemy* enemy = new Enemy;
-
-	//変数宣言
-	int player_hp = 1;
-	int enemybullet = 0;
-	int enemybulletX = -100;
-	int enemybulletY = -100;
-	int enemybulletRadius = 10;
-	int enemybulletspeed = 8;
+	Enemy* enemy2 = new Enemy;
+	EnemyBullet* enemybullet = new EnemyBullet;
 
 	//マウス変数
 	int x = 0;
@@ -68,7 +63,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int gametitle = Novice::LoadTexture("./Resource/title.png");
 	int gamerule = Novice::LoadTexture("./Resource/rule.png");
 	int playgame = Novice::LoadTexture("./Resource/stage.png");
-	int enemyBullet = Novice::LoadTexture("./Resource/enemybullet.png");
 
 	//ファイル読み込み
 	FILE* fp1 = nullptr;
@@ -127,7 +121,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			if (player->player_.x < 40) {
 				player->player_.x = 40;
 			}
-			if (enemy->enemy_.hp != 0) {
+			if (enemy->enemy_hp != 0) {
 				if (player->player_.x > 620) {
 					player->player_.x = 620;
 				}
@@ -160,15 +154,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 
 			//プレイヤーの攻撃と敵の当たり判定
-			if (enemy->enemy_.hp != 0) {
+			if (enemy->enemy_hp != 0) {
 				for (int i = 0; i < bullet->bulletMax; i++) {
-					if (bullet->bullet_[i].isShot == true) {
+					if (bullet->isShot[i] == true) {
 						float dx = bullet->bullet_[i].x - enemy->enemy_.x;
 						float dy = bullet->bullet_[i].y - enemy->enemy_.y;
 						float d = sqrtf(dx * dx + dy * dy);
 
 						if (d <= bullet->bullet_[i].radius + enemy->enemy_.radius) {
-							bullet->bullet_[i].isShot = 0;
+							bullet->isShot[i] = false;
 							enemy->OnCollision();
 						}
 					}
@@ -180,7 +174,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				nowMode = stage2;
 				player->player_.x = 40;
 				player->player_.y = 505;
-				enemy->enemy_.hp = 10;
+				enemy->enemy_hp = 10;
 			}
 			break;
 
@@ -223,51 +217,34 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				point = 0;
 			}
 
+			//敵の攻撃
+			enemy2->Update();
+
 			//プレイヤーの攻撃と敵の当たり判定
-			if (enemy->enemy_.hp != 0) {
+			if (enemy2->enemy_hp != 0) {
 				for (int i = 0; i < bullet->bulletMax; i++) {
-					if (bullet->bullet_[i].isShot == true) {
-						float dx = bullet->bullet_[i].x - enemy->enemy_.x;
-						float dy = bullet->bullet_[i].y - enemy->enemy_.y;
+					if (bullet->isShot[i] == true) {
+						float dx = bullet->bullet_[i].x - enemy2->enemy_.x;
+						float dy = bullet->bullet_[i].y - enemy2->enemy_.y;
 						float d = sqrtf(dx * dx + dy * dy);
 
-						if (d <= bullet->bullet_[i].radius + enemy->enemy_.radius) {
-							bullet->bullet_[i].isShot = 0;
-							enemy->OnCollision();
+						if (d <= bullet->bullet_[i].radius + enemy2->enemy_.radius) {
+							bullet->isShot[i] = 0;
+							enemy2->OnCollision();
 						}
 					}
 				}
 			}
 
-			//敵の攻撃
-			if (enemy->enemy_.hp != 0) {
-				if (enemybullet == 0) {
-					enemybullet = 1;
-					enemybulletX = enemy->enemy_.x-40;
-					enemybulletY = enemy->enemy_.y;
-				}
-				if (enemybullet == 1) {
-					enemybulletX -= enemybulletspeed;
-				}
-				if (enemybulletX < 40) {
-					enemybullet = 0;
-					enemybulletX = enemy->enemy_.x-40;
-					enemybulletY = enemy->enemy_.y;
-				}
-			}
-			if (enemy->enemy_.hp == 0) {
-				enemybullet = 0;
-			}
-
 			//敵の攻撃とプレイヤーの当たり判定
-			if (enemybullet == 1) {
-				float enemybullet_player_X = enemybulletX - player->player_.x;
-				float enemybullet_player_Y = enemybulletY - player->player_.y;
+			if (enemy2->E_Bullet->enemy_isShot == true) {
+				float enemybullet_player_X = enemy2->enemy_.x - player->player_.x;
+				float enemybullet_player_Y = enemy2->enemy_.y - player->player_.y;
 				float d2 = sqrtf(enemybullet_player_X * enemybullet_player_X + enemybullet_player_Y * enemybullet_player_Y);
 
-				if (d2 <= enemybulletRadius + player->player_.radius) {
-					enemybullet = 0;
-					player_hp = 0;
+				if (d2 <= enemy2->enemy_.radius + player->player_.radius) {
+					enemy2->E_Bullet->enemy_isShot = false;
+					player->player_hp = 0;
 				}
 			}
 
@@ -276,9 +253,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				nowMode = stage3;
 				player->player_.x = 40;
 				player->player_.y = 505;
-				enemy->enemy_.hp = 10;
+				enemy2->enemy_hp = 10;
 			}
-			if (player_hp == 0) {
+			if (player->player_hp == 0) {
 				nowMode = gameover;
 			}
 			break;
@@ -323,7 +300,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 
 			//シーン切り替え
-			if (player_hp == 0) {
+			if (player->player_hp == 0) {
 				nowMode = gameover;
 			}
 
@@ -334,7 +311,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			//シーン切り替え
 			if (keys[DIK_LSHIFT] && preKeys[DIK_LSHIFT] == 0) {
 				nowMode = rule;
-				player_hp = 1;
+				player->player_hp = 1;
 			}
 			break;
 
@@ -343,7 +320,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			//シーン切り替え
 			if (keys[DIK_LSHIFT] && preKeys[DIK_LSHIFT] == 0) {
 				nowMode = title;
-				player_hp = 1;
+				player->player_hp = 1;
 			}
 			break;
 		}
@@ -390,7 +367,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 
 			//敵
-			if (enemy->enemy_.hp > 0) {
+			if (enemy->enemy_hp > 0) {
 				enemy->Draw();
 			}
 
@@ -418,12 +395,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 
 			//敵
-			if (enemy->enemy_.hp > 0) {
-				enemy->Draw();
+			if (enemy2->enemy_hp > 0) {
+				enemy2->Draw();
 			}
-			if (enemybullet == 1) {
-				Novice::DrawEllipse(enemybulletX, enemybulletY, enemybulletRadius, enemybulletRadius, 0.0f, RED, kFillModeSolid);
-				Novice::DrawSprite(enemybulletX-15, enemybulletY-15, enemyBullet, 1, 1, 0, WHITE);
+			if (enemy2->E_Bullet->enemy_isShot == true) {
+				enemy2->E_Bullet->Draw();
 			}
 
 			//デバッグ
@@ -481,6 +457,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	delete player;
 	delete bullet;
 	delete enemy;
+	delete enemy2;
+	delete enemybullet;
 
 	// ライブラリの終了
 	Novice::Finalize();
