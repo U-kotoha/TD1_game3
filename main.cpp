@@ -339,8 +339,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			Novice::DrawSprite(0, 0, gametitle, 1, 1, 0, WHITE);
 
 			//デバッグ
-			//Novice::ScreenPrintf(0, 0, "Mouse X : %d", x);
-			//Novice::ScreenPrintf(0, 30, "Mouse Y : %d", y);
+			Novice::ScreenPrintf(0, 0, "Mouse X : %d", x);
+			Novice::ScreenPrintf(150, 0, "Mouse Y : %d", y);
 			break;
 
 		case rule:  //ルール
@@ -372,8 +372,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 
 			//デバッグ
-			Novice::ScreenPrintf(0, 0, "posX = %d", player->player_.x);
-			Novice::ScreenPrintf(0, 30, "posY = %d", player->player_.y);
+			//Novice::ScreenPrintf(0, 0, "posX = %d", player->player_.x);
+			//Novice::ScreenPrintf(0, 30, "posY = %d", player->player_.y);
 			//Novice::ScreenPrintf(0, 60, "enemyHP = %d", enemy->enemy_.hp);
 			break;
 
