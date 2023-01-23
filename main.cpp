@@ -14,7 +14,7 @@ const char kWindowTitle[] = "GC1A_05_ウブカタコトハ_タイトル";
 enum modeName {
 	title, rule, stage1, stage2, stage3, gameover, gameclear
 };
-int nowMode = title;
+int nowMode = stage2;
 
 //マウス位置の取得
 static int GetMousePosition(int* positionX, int* positionY);
@@ -238,11 +238,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			//敵の攻撃とプレイヤーの当たり判定
 			if (enemy2->E_Bullet->enemy_isShot == true) {
-				float enemybullet_player_X = enemy2->enemy_.x - player->player_.x;
-				float enemybullet_player_Y = enemy2->enemy_.y - player->player_.y;
+				float enemybullet_player_X = enemy2->E_Bullet->enemybullet_.x - player->player_.x;
+				float enemybullet_player_Y = enemy2->E_Bullet->enemybullet_.y - player->player_.y;
 				float d2 = sqrtf(enemybullet_player_X * enemybullet_player_X + enemybullet_player_Y * enemybullet_player_Y);
 
-				if (d2 <= enemy2->enemy_.radius + player->player_.radius) {
+				if (d2 <= enemy2->E_Bullet->enemybullet_.radius + player->player_.radius) {
 					enemy2->E_Bullet->enemy_isShot = false;
 					player->player_hp = 0;
 				}
@@ -408,8 +408,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			break;
 
 		case stage3:   //メイン
-
-			//背景
+					   
+		    //背景
 			Novice::DrawSprite(0, 0, playgame, 1, 1, 0, WHITE);
 
 			//プレイヤー

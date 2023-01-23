@@ -32,14 +32,10 @@ void Bullet::Update(char* keys) {
 }
 
 void Bullet::Draw() {
-	int PlayerBullet = Novice::LoadTexture("./Resource/bullet.png");
-
 	//’e‚Ì•`‰æ
 	for (int i = 0; i < bulletMax; i++) {
 		if (isShot[i] == true) {
-			Novice::DrawEllipse(bullet_[i].x, bullet_[i].y,
-				bullet_[i].radius, bullet_[i].radius, 0.0f, 0x00, kFillModeSolid);
-			Novice::DrawSprite(bullet_[i].x - 15, bullet_[i].y - 15, PlayerBullet, 1, 1, 0.0f, WHITE);
+			Novice::DrawEllipse(bullet_[i].x, bullet_[i].y, bullet_[i].radius, bullet_[i].radius, 0.0f, WHITE, kFillModeSolid);
 		}
 	}
 }

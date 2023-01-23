@@ -10,6 +10,8 @@ public:
 	Transform enemy_;
 	EnemyBullet* E_Bullet;
 
+public:
+
 	//コンストラクタ
 	Enemy();
 
