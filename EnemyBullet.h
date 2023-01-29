@@ -5,6 +5,7 @@
 class EnemyBullet {
 public:
 
+	//ƒƒ“ƒo•Ï”
 	bool enemy_isShot;
 	Transform enemybullet_;
 

@@ -2,6 +2,7 @@
 #include <Enemy.h>
 
 Enemy::Enemy() {
+	//‰Šú‰»
 	enemy_hp = 10;
 	enemy_.x = 800;
 	enemy_.y = 505;
@@ -17,7 +18,6 @@ Enemy::~Enemy() {
 }
 
 void Enemy::Update() {
-
 	//“G‚ÌUŒ‚
 	if (enemy_hp != 0) {
 		if (E_Bullet->enemy_isShot == false) {

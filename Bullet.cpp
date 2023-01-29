@@ -7,7 +7,7 @@ Bullet::Bullet() {
 	bulletCount = 0;
 
 	for (int i = 0; i < bulletMax; i++) {
-		//’e‚Ì‰Šú‰»
+		//•¡”‚Ì’e‚Ì‰Šú‰»
 		bullet_[i].x = -100;
 		bullet_[i].y = -100;
 		bullet_[i].radius = 10;

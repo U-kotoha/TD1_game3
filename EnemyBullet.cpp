@@ -2,8 +2,8 @@
 #include <EnemyBullet.h>
 
 EnemyBullet::EnemyBullet() {
-	enemy_isShot = false;
 	//‰Šú‰»
+	enemy_isShot = false;
 	enemybullet_.x = -100;
 	enemybullet_.y = -100;
 	enemybullet_.radius = 10;

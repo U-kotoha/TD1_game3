@@ -5,6 +5,7 @@
 class Bullet {
 public:
 
+	//ƒƒ“ƒo•Ï”
 	int bulletMax;
 	int bulletCount;
 	bool isShot[10];

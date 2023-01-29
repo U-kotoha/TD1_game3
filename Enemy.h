@@ -5,8 +5,8 @@
 class Enemy {
 public:
 
+	//ƒƒ“ƒo•Ï”
 	int enemy_hp;
-	
 	Transform enemy_;
 	EnemyBullet* E_Bullet;
 

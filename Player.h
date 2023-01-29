@@ -6,8 +6,8 @@
 class Player {
 public:
 
+	//ƒƒ“ƒo•Ï”
 	int player_hp;
-
 	Transform player_;
 	Bullet* P_Bullet;
 
