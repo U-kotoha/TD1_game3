@@ -11,7 +11,5 @@ EnemyBullet::EnemyBullet() {
 }
 
 void EnemyBullet::Draw() {
-	if (enemy_isShot == true) {
-		Novice::DrawEllipse(enemybullet_.x, enemybullet_.y,enemybullet_.radius, enemybullet_.radius, 0.0f, RED, kFillModeSolid);
-	}
+	Novice::DrawEllipse(enemybullet_.x, enemybullet_.y, enemybullet_.radius, enemybullet_.radius, 0.0f, RED, kFillModeSolid);
 }

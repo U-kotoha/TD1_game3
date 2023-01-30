@@ -22,8 +22,8 @@ void Enemy::Update() {
 	if (enemy_hp != 0) {
 		if (E_Bullet->enemy_isShot == false) {
 			E_Bullet->enemy_isShot = true;
-			E_Bullet->enemy_isShot = enemy_.x - 40;
-			E_Bullet->enemy_isShot = enemy_.y;
+			E_Bullet->enemybullet_.x = enemy_.x - 40;
+			E_Bullet->enemybullet_.y = enemy_.y;
 		}
 		if (E_Bullet->enemy_isShot == true) {
 			E_Bullet->enemybullet_.x -= E_Bullet->enemybullet_.speed;

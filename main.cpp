@@ -14,7 +14,7 @@ const char kWindowTitle[] = "GC1A_05_ウブカタコトハ_タイトル";
 enum modeName {
 	title, rule, stage1, stage2, stage3, gameover, gameclear
 };
-int nowMode = stage2;
+int nowMode = stage1;
 
 //マウス位置の取得
 static int GetMousePosition(int* positionX, int* positionY);
@@ -218,7 +218,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 
 			//敵の攻撃
-			enemy2->Update();
+			if (enemy2->enemy_hp != 0) {
+				enemy2->Update();
+			}
 
 			//プレイヤーの攻撃と敵の当たり判定
 			if (enemy2->enemy_hp != 0) {
@@ -237,14 +239,16 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 
 			//敵の攻撃とプレイヤーの当たり判定
-			if (enemy2->E_Bullet->enemy_isShot == true) {
-				float enemybullet_player_X = enemy2->E_Bullet->enemybullet_.x - player->player_.x;
-				float enemybullet_player_Y = enemy2->E_Bullet->enemybullet_.y - player->player_.y;
-				float d2 = sqrtf(enemybullet_player_X * enemybullet_player_X + enemybullet_player_Y * enemybullet_player_Y);
+			if (enemy2->enemy_hp != 0) {
+				if (enemy2->E_Bullet->enemy_isShot == true) {
+					float enemybullet_player_X = enemy2->E_Bullet->enemybullet_.x - player->player_.x;
+					float enemybullet_player_Y = enemy2->E_Bullet->enemybullet_.y - player->player_.y;
+					float d2 = sqrtf(enemybullet_player_X * enemybullet_player_X + enemybullet_player_Y * enemybullet_player_Y);
 
-				if (d2 <= enemy2->E_Bullet->enemybullet_.radius + player->player_.radius) {
-					enemy2->E_Bullet->enemy_isShot = false;
-					player->player_hp = 0;
+					if (d2 <= enemy2->E_Bullet->enemybullet_.radius + player->player_.radius) {
+						enemy2->E_Bullet->enemy_isShot = false;
+						player->player_hp = 0;
+					}
 				}
 			}
 
@@ -257,6 +261,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 			if (player->player_hp == 0) {
 				nowMode = gameover;
+				player->player_.x = 100;
+				player->player_.y = 505;
+				enemy2->E_Bullet->enemy_isShot = false;
 			}
 			break;
 
@@ -338,9 +345,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			//背景
 			Novice::DrawSprite(0, 0, gametitle, 1, 1, 0, WHITE);
 
-			//デバッグ
+#ifdef _DEBUG //デバッグ
 			Novice::ScreenPrintf(0, 0, "Mouse X : %d", x);
 			Novice::ScreenPrintf(150, 0, "Mouse Y : %d", y);
+#endif 
 			break;
 
 		case rule:  //ルール
@@ -371,10 +379,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				enemy->Draw();
 			}
 
-			//デバッグ
-			//Novice::ScreenPrintf(0, 0, "posX = %d", player->player_.x);
-			//Novice::ScreenPrintf(0, 30, "posY = %d", player->player_.y);
-			//Novice::ScreenPrintf(0, 60, "enemyHP = %d", enemy->enemy_.hp);
+#ifdef _DEBUG //デバッグ
+			Novice::ScreenPrintf(0, 0, "posX = %d", player->player_.x);
+			Novice::ScreenPrintf(0, 30, "posY = %d", player->player_.y);
+			Novice::ScreenPrintf(0, 60, "enemyHP = %d", enemy->enemy_hp);
+#endif 
 			break;
 
 		case stage2:   //メイン
@@ -398,13 +407,16 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			if (enemy2->enemy_hp > 0) {
 				enemy2->Draw();
 			}
-			if (enemy2->E_Bullet->enemy_isShot == true) {
-				enemy2->E_Bullet->Draw();
+			if (enemy2->enemy_hp > 0) {
+				if (enemy2->E_Bullet->enemy_isShot == true) {
+					enemy2->E_Bullet->Draw();
+				}
 			}
 
-			//デバッグ
-			//Novice::ScreenPrintf(0, 0, "posX = %d", player->player_.x);
-			//Novice::ScreenPrintf(0, 30, "posY = %d", player->player_.y);
+#ifdef _DEBUG //デバッグ
+			Novice::ScreenPrintf(0, 0, "posX = %d", player->player_.x);
+			Novice::ScreenPrintf(0, 30, "posY = %d", player->player_.y);
+#endif
 			break;
 
 		case stage3:   //メイン
@@ -424,9 +436,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				}
 			}
 
-			//デバッグ
-			//Novice::ScreenPrintf(0, 0, "posX = %d", player->player_.x);
-			//Novice::ScreenPrintf(0, 30, "posY = %d", player->player_.y);
+#ifdef _DEBUG //デバッグ
+			Novice::ScreenPrintf(0, 0, "posX = %d", player->player_.x);
+			Novice::ScreenPrintf(0, 30, "posY = %d", player->player_.y);
+#endif
 			break;
 
 		case gameover:   //ゲームオーバー
