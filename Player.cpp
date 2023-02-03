@@ -3,7 +3,7 @@
 
 Player::Player() {
 	//‰Šú‰»
-	player_hp = 1;
+	player_hp = 3;
 	player_.x = 100;
 	player_.y = 505;
 	player_.radius = 40;
