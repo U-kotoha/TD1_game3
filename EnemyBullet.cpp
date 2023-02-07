@@ -11,5 +11,8 @@ EnemyBullet::EnemyBullet() {
 }
 
 void EnemyBullet::Draw() {
-	Novice::DrawEllipse(enemybullet_.x, enemybullet_.y, enemybullet_.radius, enemybullet_.radius, 0.0f, RED, kFillModeSolid);
+	//“G‚Ì’e‚Ì•`‰æ
+	int ENEMYBULLET = Novice::LoadTexture("./Resource/enemybullet.png");
+	Novice::DrawSprite(enemybullet_.x - 15, enemybullet_.y - 15, ENEMYBULLET, 1, 1, 0.0f, WHITE);
+	//Novice::DrawEllipse(enemybullet_.x, enemybullet_.y, enemybullet_.radius, enemybullet_.radius, 0.0f, RED, kFillModeSolid);
 }

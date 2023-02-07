@@ -19,6 +19,6 @@ public:
 	~Player();
 
 	//ƒƒ“ƒoŠÖ”
-	void Move(Bullet* P_Bullet, char* keys);
+	void Move(Bullet* P_Bullet, char* keys, char* preKeys);
 	void Draw(Bullet* P_Bullet);
 };
