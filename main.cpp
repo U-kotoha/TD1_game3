@@ -9,7 +9,7 @@
 #include <EnemyBullet.h>
 #include <EnemyBoss.h>
 
-const char kWindowTitle[] = "GC1A_05_ウブカタコトハ_タイトル";
+const char kWindowTitle[] = "SNOW BALL";
 
 //シーン管理
 enum modeName {
@@ -78,10 +78,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int playerHP2 = Novice::LoadTexture("./Resource/HP2.png");
 	int playerHP1 = Novice::LoadTexture("./Resource/HP1.png");
 
+	//サウンド読み込み
+	int soundHandle = -1;
+	int titlesound = Novice::LoadAudio("./Resource/title.wav");
+
 	//ファイル読み込み
 	FILE* fp1 = nullptr;
-	char filename1[] = "ステージ1.csv";
-	int err1 = fopen_s(&fp1, "ステージ1.csv", "r");
+	char filename1[] = "ステージ.csv";
+	int err1 = fopen_s(&fp1, "ステージ.csv", "r");
 
 	for (int i = 0; i < MapchipY; i++) {
 		for (int j = 0; j < MapchipX; j++) {
@@ -106,6 +110,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		{
 		case title:   //タイトル
 
+			//サウンド
+			if (!Novice::IsPlayingAudio(soundHandle) || soundHandle == -1) {
+				soundHandle = Novice::PlayAudio(titlesound, true, 0.5);
+			}
+
 			//マウス位置取得
 			Novice::GetMousePosition(&x, &y);
 
@@ -128,6 +137,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			break;
 		
 		case stage1:   //メイン
+
+			//サウンド
+			Novice::StopAudio(titlesound);
 
 			//プレイヤーの動き
 			player->Move(bullet, keys, preKeys);
@@ -236,8 +248,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			break;
 
 		case stage3:   //メイン
+
 			randX = rand() % 11 - 5;
 			randY = rand() % 11 - 5;
+			
 			//プレイヤーの動き
 			player->Move(bullet, keys, preKeys);
 
